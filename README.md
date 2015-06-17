@@ -63,8 +63,8 @@ Version: 1.0
 Credits
 =======
 
-Thanks to Adam Pope of [Storm Consultancy]http://www.stormconsultancy.co.uk for the [Gravity Forms ACF Field]https://github.com/stormuk/Gravity-Forms-ACF-Field plugin which this is based.
+Thanks to Adam Pope of [Storm Consultancy](http://www.stormconsultancy.co.uk) for the [Gravity Forms ACF Field](https://github.com/stormuk/Gravity-Forms-ACF-Field) plugin which this is based.
 
-And in turn, Lewis Mcarey for the [Users Field ACF add-on]https://github.com/lewismcarey/User-Field-ACF-Add-on on which the Gravity Forms ACF field was based.
+And in turn, Lewis Mcarey for the [Users Field ACF add-on](https://github.com/lewismcarey/User-Field-ACF-Add-on) on which the Gravity Forms ACF field was based.
 
 
