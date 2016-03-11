@@ -110,12 +110,11 @@ class acf_field_ninja_forms extends acf_field {
     // vars
     $field = array_merge($this->defaults, $field);
     $choices = array();
-    $forms = Ninja_Forms()->forms()->get_all();
+    $forms = Ninja_Forms()->form()->get_forms();
 
     if( $forms ) {
       foreach( $forms as $form_id ) {
-        $all_fields = Ninja_Forms()->form( $form_id )->get_all_settings();
-        $choices[ $form_id ] = $all_fields['form_title'];
+        $choices[ $form->get_id() ] = $form->get_setting('title');
       }
     }
 
