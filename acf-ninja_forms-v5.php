@@ -110,12 +110,11 @@ class acf_field_ninja_forms extends acf_field {
     // vars
     $field = array_merge($this->defaults, $field);
     $choices = array();
-    $forms = Ninja_Forms()->forms()->get_all();
+    $forms = Ninja_Forms()->form()->get_forms();
 
     if( $forms ) {
-      foreach( $forms as $form_id ) {
-        $all_fields = Ninja_Forms()->form( $form_id )->get_all_settings();
-        $choices[ $form_id ] = $all_fields['form_title'];
+      foreach( $forms as $form ) {
+        $choices[ $form->get_id() ] = $form->get_setting('title');
       }
     }
 
@@ -170,12 +169,12 @@ class acf_field_ninja_forms extends acf_field {
     // load form data
     if( is_array($value) ) {
       foreach( $value as $k => $v ) {
-          $form = ninja_forms_get_form_by_id( $v );
+          $form = Ninja_Forms()->form( $v )->get_settings();
           $value[ $k ] = $form;
         }
         $value = (object) $value;
     } else {
-      $value = ninja_forms_get_form_by_id( $value );
+      $value = Ninja_Forms()->form( $value );
     }
 
     // return value
