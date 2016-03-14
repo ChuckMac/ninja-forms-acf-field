@@ -113,7 +113,7 @@ class acf_field_ninja_forms extends acf_field {
     $forms = Ninja_Forms()->form()->get_forms();
 
     if( $forms ) {
-      foreach( $forms as $form_id ) {
+      foreach( $forms as $form ) {
         $choices[ $form->get_id() ] = $form->get_setting('title');
       }
     }
