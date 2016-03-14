@@ -169,12 +169,12 @@ class acf_field_ninja_forms extends acf_field {
     // load form data
     if( is_array($value) ) {
       foreach( $value as $k => $v ) {
-          $form = ninja_forms_get_form_by_id( $v );
+          $form = Ninja_Forms()->form( $v )->get_settings();
           $value[ $k ] = $form;
         }
         $value = (object) $value;
     } else {
-      $value = ninja_forms_get_form_by_id( $value );
+      $value = Ninja_Forms()->form( $value );
     }
 
     // return value
