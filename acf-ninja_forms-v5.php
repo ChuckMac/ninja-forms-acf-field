@@ -6,10 +6,10 @@
  * that is bundled with this package in the file license.txt.
  * It is also available through the world-wide-web at this URL:
  * http://www.gnu.org/licenses/gpl-3.0.html
- */ 
+ */
 
 class acf_field_ninja_forms extends acf_field {
-  
+
   /*
   *  __construct
   *
@@ -35,9 +35,9 @@ class acf_field_ninja_forms extends acf_field {
 
     // do not delete!
     parent::__construct();
+
   }
-  
-  
+
   /*
   *  render_field_settings()
   *
@@ -51,7 +51,7 @@ class acf_field_ninja_forms extends acf_field {
   *  @return  n/a
   */
   function render_field_settings( $field ) {
-    
+
     /*
     *  acf_render_field_setting
     *
@@ -61,7 +61,7 @@ class acf_field_ninja_forms extends acf_field {
     *  More than one setting can be added by copy/paste the above code.
     *  Please note that you must also have a matching $defaults value for the field name (font_size)
     */
-    
+
     acf_render_field_setting( $field, array(
       'label' => 'Allow Null?',
       'type'  => 'radio',
@@ -84,8 +84,8 @@ class acf_field_ninja_forms extends acf_field {
     ));
 
   }
-  
-    
+
+
   /*
   *  render_field()
   *
@@ -101,30 +101,41 @@ class acf_field_ninja_forms extends acf_field {
   *  @return  n/a
   */
   function render_field( $field ) {
-    
+
     /*
     *  Review the data of $field.
     *  This will show what data is available
     */
-    
+
     // vars
     $field = array_merge($this->defaults, $field);
     $choices = array();
-    $forms = Ninja_Forms()->forms()->get_all();
 
-    if( $forms ) {
-      foreach( $forms as $form_id ) {
-        $all_fields = Ninja_Forms()->form( $form_id )->get_all_settings();
-        $choices[ $form_id ] = $all_fields['form_title'];
-      }
-    }
+		if ( version_compare( get_option( 'ninja_forms_version', '0.0.0' ), '3', '<' ) ) {
+			// Ninja forms 2.x functions
+			$forms = Ninja_Forms()->forms()->get_all();
+			if ( $forms ) {
+				foreach ( $forms as $form_id ) {
+					$all_fields = Ninja_Forms()->form( $form_id )->get_all_settings();
+					$choices[ $form_id ] = $all_fields['form_title'];
+				}
+			}
+		} else {
+			// Ninja forms 3.x functions
+			$forms = Ninja_Forms()->form()->get_forms();
+			if ( $forms ) {
+				foreach ( $forms as $form ) {
+					$choices[ $form->get_id() ] = $form->get_setting( 'title' );
+				}
+			}
+		}
 
     // override field settings and render
     $field['choices'] = $choices;
     $field['type'] = 'select';
     ?>
       <select name="<?php echo $field['name'];echo ( true == $field['allow_multiple'] ? '[]' : null );?>" id="<?php echo $field['name'];?>" <?php echo ( true == $field['allow_multiple'] ? 'multiple' : null ); ?>>
-        <?php 
+        <?php
         foreach ($field['choices'] as $key => $value) {
           $selected = '';
           if( is_array( $field['value'] ) && in_array( $key, $field['value'] ) ) {
@@ -141,7 +152,7 @@ class acf_field_ninja_forms extends acf_field {
     <?php
   }
 
-  
+
   /*
   *  format_value()
   *
@@ -167,16 +178,32 @@ class acf_field_ninja_forms extends acf_field {
       return false;
     }
 
-    // load form data
-    if( is_array($value) ) {
-      foreach( $value as $k => $v ) {
-          $form = ninja_forms_get_form_by_id( $v );
-          $value[ $k ] = $form;
-        }
-        $value = (object) $value;
-    } else {
-      $value = ninja_forms_get_form_by_id( $value );
-    }
+		// load form data
+		if ( version_compare( get_option( 'ninja_forms_version', '0.0.0' ), '3', '<' ) ) {
+			// Ninja forms 2.x functions
+			if ( is_array( $value ) ) {
+				foreach ( $value as $k => $v ) {
+					$form = ninja_forms_get_form_by_id( $v );
+					$value[ $k ] = $form;
+				}
+				$value = (object) $value;
+			} else {
+				$value = ninja_forms_get_form_by_id( $value );
+			}
+		} else {
+			// Ninja forms 3.x functions
+			if ( is_array( $value ) ) {
+				foreach ( $value as $k => $v ) {
+					$form = Ninja_Forms()->form( $v )->get();
+					$value[ $k ] = array( 'id' => $v, 'data' => $form->get_settings() );
+				}
+				$value = (object) $value;
+			} else {
+				//$value = Ninja_Forms()->form( $value )->get_settings();
+				$form = Ninja_Forms()->form( $value )->get();
+				$value = array( 'id' => $value, 'data' => $form->get_settings() );
+			}
+		}
 
     // return value
     return $value;
