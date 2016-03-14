@@ -39,13 +39,19 @@ The data returned is either a Form settings array or, for multiple values, an ob
 The following example will work with single or multiple form entries.
 
 ```
-<?php 
+<?php
     $ninja_form = get_field('your_form_field');
-    if( function_exists( 'ninja_forms_display_form' ) && is_array( $ninja_form ) ){
+    if( function_exists( 'ninja_forms_display_form' ) && is_array( $ninja_form ) ){ // Ninja forms 2.x
         ninja_forms_display_form( $ninja_form['id'] );
-    } elseif( function_exists( 'ninja_forms_display_form' ) && is_object( $ninja_form ) ){
+    } elseif( function_exists( 'ninja_forms_display_form' ) && is_object( $ninja_form ) ){ // Ninja forms 2.x
         foreach ($ninja_form as $form) {
             ninja_forms_display_form( $form['id'] );
+        }
+    } elseif( class_exists( 'Ninja_Forms' ) && is_array( $ninja_form ) ){ // Ninja forms 3.x
+        Ninja_Forms()->display( $ninja_form['id'] );
+    } elseif( class_exists( 'Ninja_Forms' ) && is_object( $ninja_form ) ){ // Ninja forms 3.x
+        foreach ($ninja_form as $form) {
+          Ninja_Forms()->display( $form['id'] );
         }
     }
 ?>
@@ -66,5 +72,3 @@ Credits
 Thanks to Adam Pope of [Storm Consultancy](http://www.stormconsultancy.co.uk) for the [Gravity Forms ACF Field](https://github.com/stormuk/Gravity-Forms-ACF-Field) plugin which this is based.
 
 And in turn, Lewis Mcarey for the [Users Field ACF add-on](https://github.com/lewismcarey/User-Field-ACF-Add-on) on which the Gravity Forms ACF field was based.
-
-
