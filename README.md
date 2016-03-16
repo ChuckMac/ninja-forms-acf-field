@@ -10,7 +10,7 @@ Compatibility
 
 This add-on will work with:
 
-* ACF verion 5
+* ACF version 5
 
 Installation
 ============
