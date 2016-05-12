@@ -10,7 +10,7 @@ License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 ***
-Derived from Advanced Custom Fields: Ninja Forms Field (https://github.com/stormuk/Gravity-Forms-ACF-Field)
+Derived from Advanced Custom Fields: Gravity Forms Field (https://github.com/stormuk/Gravity-Forms-ACF-Field)
   by @adam_pope (http://www.stormconsultancy.co.uk)
 ***
 
@@ -22,6 +22,6 @@ function include_field_types_ninja_forms( $version ) {
   include_once('acf-ninja_forms-v5.php');
 
 }
-add_action('acf/include_field_types', 'include_field_types_ninja_forms'); 
+add_action('acf/include_field_types', 'include_field_types_ninja_forms');
 
 ?>
