@@ -60,15 +60,15 @@ The following example will work with single or multiple form entries.
 You can find out more about the ninja forms functions to embed a form or form data on a page in their [documentation](http://docs.ninjaforms.com/category/29-global-variables)
 
 
-About
+Versioning
 =====
 
-Version: 1.0
+Since this is a drop-in plugin, we will make sure that versioning happens according to the main plugin.
 
 
 Credits
 =======
 
-Thanks to Adam Pope of [Storm Consultancy](http://www.stormconsultancy.co.uk) for the [Gravity Forms ACF Field](https://github.com/stormuk/Gravity-Forms-ACF-Field) plugin which this is based.
+Thanks to Adam Pope of [Storm Consultancy](http://www.stormconsultancy.co.uk) for the [Gravity Forms ACF Field](https://github.com/stormuk/Gravity-Forms-ACF-Field) plugin which this is based on.
 
 And in turn, Lewis Mcarey for the [Users Field ACF add-on](https://github.com/lewismcarey/User-Field-ACF-Add-on) on which the Gravity Forms ACF field was based.
