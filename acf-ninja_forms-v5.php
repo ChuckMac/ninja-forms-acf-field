@@ -135,7 +135,12 @@ class acf_field_ninja_forms extends acf_field {
     $field['type'] = 'select';
     ?>
       <select name="<?php echo $field['name'];echo ( true == $field['allow_multiple'] ? '[]' : null );?>" id="<?php echo $field['name'];?>" <?php echo ( true == $field['allow_multiple'] ? 'multiple' : null ); ?>>
-        <?php
+				<?php;
+				if( true == $field['allow_null'] ) { ?>
+					<option value="">-- <?php _e('None'); ?> --</option>
+				<?php
+				}
+
         foreach ($field['choices'] as $key => $value) {
           $selected = '';
           if( is_array( $field['value'] ) && in_array( $key, $field['value'] ) ) {

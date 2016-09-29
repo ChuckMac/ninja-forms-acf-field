@@ -3,7 +3,7 @@
 Plugin Name: Advanced Custom Fields: Ninja Forms Field
 Plugin URI: https://github.com/chuckmac/ninja-forms-acf-field
 Description: ACF field to select one or many Ninja Forms
-Version: 3.0.0
+Version: 3.1
 Author: chuckmac
 Author URI: https://www.chuckmac.info
 License: GNU General Public License v3.0
