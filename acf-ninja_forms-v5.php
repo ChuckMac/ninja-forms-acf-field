@@ -85,6 +85,20 @@ class acf_field_ninja_forms extends acf_field {
 
   }
 
+  /*
+  *  is_ninja_forms_three()
+  *
+  *  We might be 3.0 but using deprecated version for compatibility!
+  *  Taken straight from NF
+  */
+
+  function is_ninja_forms_three() {
+    if ( get_option( 'ninja_forms_load_deprecated', false ) ) {
+      return false;
+    }
+
+    return version_compare( get_option( 'ninja_forms_version', '0' ), '3', '>='  );
+  }
 
   /*
   *  render_field()
@@ -111,7 +125,7 @@ class acf_field_ninja_forms extends acf_field {
     $field = array_merge($this->defaults, $field);
     $choices = array();
 
-		if ( version_compare( get_option( 'ninja_forms_version', '0.0.0' ), '3', '<' ) ) {
+    if ( !$this->is_ninja_forms_three() ) {
 			// Ninja forms 2.x functions
 			$forms = Ninja_Forms()->forms()->get_all();
 			if ( $forms ) {
